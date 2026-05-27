@@ -14,9 +14,11 @@ import { sidebarModules } from "@/config/sidebar-routes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 function AppSideBar() {
   const pathname = usePathname();
+  const router = useRouter();
 
   const currentSegment = pathname.split("/")[1];
 
@@ -125,7 +127,9 @@ function AppSideBar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               className="w-full h-12 justify-start gap-4 px-4 rounded-xl font-semibold text-[15px] text-[#855300] hover:bg-[#855300]/5"
-              onClick={() => console.log("Cerrando sesión...")}
+              onClick={() => {
+                router.push("/");
+              }}
             >
               <LogOut className="h-5 w-5 text-[#855300]" />
               <span>Cerrar Sesión</span>
