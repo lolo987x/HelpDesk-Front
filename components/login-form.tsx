@@ -1,26 +1,30 @@
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import {
-  Field,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
+  const router = useRouter();
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Redireccionamos a la página de administración después de un inicio de sesión exitoso
+    router.push("/Administrador/dashboard");
+  };
+
   return (
     <div className="w-full flex justify-center">
       <div className="bg-[#111111] text-white rounded-[30px] shadow-2xl p-12 w-full max-w-lg min-h-[620px] flex items-center">
-
         <form
           className={cn("flex flex-col gap-7 w-full", className)}
           {...props}
+          onSubmit={onSubmit}
         >
           <FieldGroup className="border-0">
-
             <div className="flex flex-col gap-3 text-left">
               <h1 className="text-5xl font-extrabold tracking-tight text-white">
                 Iniciar Sesión
@@ -81,7 +85,6 @@ export function LoginForm({
                   id="remember"
                   className="h-4 w-4 rounded bg-[#1f1f1f] border-0"
                 />
-
                 Recordar sesión
               </label>
             </Field>
@@ -106,11 +109,9 @@ export function LoginForm({
                 </a>
               </p>
             </Field>
-
           </FieldGroup>
         </form>
-
       </div>
     </div>
-  )
+  );
 }
