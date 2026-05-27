@@ -1,8 +1,27 @@
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+"use client";
+
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+
+import {
+  Checkbox,
+} from "@/components/ui/checkbox";
+
+import {
+  Label,
+} from "@/components/ui/label";
 
 export function LoginForm({
   className,
@@ -12,106 +31,113 @@ export function LoginForm({
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Redireccionamos a la página de administración después de un inicio de sesión exitoso
+
     router.push("/Administrador/dashboard");
   };
 
   return (
     <div className="w-full flex justify-center">
-      <div className="bg-[#111111] text-white rounded-[30px] shadow-2xl p-12 w-full max-w-lg min-h-[620px] flex items-center">
-        <form
-          className={cn("flex flex-col gap-7 w-full", className)}
-          {...props}
-          onSubmit={onSubmit}
-        >
-          <FieldGroup className="border-0">
-            <div className="flex flex-col gap-3 text-left">
-              <h1 className="text-5xl font-extrabold tracking-tight text-white">
-                Iniciar Sesión
-              </h1>
+      <Card className="w-full max-w-[520px] bg-[#111111] border-0 rounded-[28px] shadow-2xl text-white px-8 py-10">
+        
+        <CardHeader className="space-y-3 pb-8">
+          <CardTitle className="text-6xl font-extrabold leading-none tracking-tight">
+            Iniciar Sesión
+          </CardTitle>
 
-              <p className="text-base text-gray-500 leading-relaxed">
-                Bienvenido de nuevo. Por favor, introduce tus credenciales.
-              </p>
-            </div>
+          <CardDescription className="text-gray-400 text-base leading-relaxed">
+            Bienvenido de nuevo. Por favor, introduce tus credenciales.
+          </CardDescription>
+        </CardHeader>
 
-            <Field className="border-0">
-              <FieldLabel
+        <CardContent>
+          <form
+            className={cn("flex flex-col gap-7", className)}
+            {...props}
+            onSubmit={onSubmit}
+          >
+            {/* EMAIL */}
+            <div className="grid gap-3">
+              <Label
                 htmlFor="email"
-                className="text-[12px] uppercase tracking-[2px] text-orange-500 font-semibold"
+                className="text-[12px] uppercase tracking-[2px] text-orange-500 font-bold"
               >
-                Usuario o email
-              </FieldLabel>
+                Usuario o Email
+              </Label>
 
               <Input
                 id="email"
                 type="email"
-                placeholder="admin@gmail.com"
+                placeholder="nombre@empresa.com"
                 required
-                className="h-14 mt-2 rounded-xl bg-[#1f1f1f] text-white placeholder:text-gray-500 border-0 focus-visible:ring-1 focus-visible:ring-orange-500"
+                className="h-14 rounded-xl bg-[#1b1b1b] border-0 text-white placeholder:text-gray-500 focus-visible:ring-1 focus-visible:ring-orange-500"
               />
-            </Field>
+            </div>
 
-            <Field className="border-0">
-              <div className="flex items-center">
-                <FieldLabel
+            {/* PASSWORD */}
+            <div className="grid gap-3">
+              
+              <div className="flex items-center justify-between">
+                <Label
                   htmlFor="password"
-                  className="text-[12px] uppercase tracking-[2px] text-orange-500 font-semibold"
+                  className="text-[12px] uppercase tracking-[2px] text-orange-500 font-bold"
                 >
                   Contraseña
-                </FieldLabel>
+                </Label>
 
-                <a
-                  href="#"
-                  className="ml-auto text-[11px] uppercase text-gray-600 hover:text-gray-400 transition"
+                <Link
+                  href="/password"
+                  className="text-[11px] uppercase text-gray-500 hover:text-orange-500 transition font-semibold"
                 >
                   ¿Olvidaste tu contraseña?
-                </a>
+                </Link>
               </div>
 
               <Input
                 id="password"
                 type="password"
-                placeholder="••••••"
+                placeholder="••••••••"
                 required
-                className="h-14 mt-2 rounded-xl bg-[#1f1f1f] text-white placeholder:text-gray-500 border-0 focus-visible:ring-1 focus-visible:ring-orange-500"
+                className="h-14 rounded-xl bg-[#1b1b1b] border-0 text-white placeholder:text-gray-500 focus-visible:ring-1 focus-visible:ring-orange-500"
               />
-            </Field>
+            </div>
 
-            <Field className="border-0">
-              <label className="flex items-center gap-3 text-gray-500 text-sm">
-                <input
-                  type="checkbox"
-                  id="remember"
-                  className="h-4 w-4 rounded bg-[#1f1f1f] border-0"
-                />
-                Recordar sesión
-              </label>
-            </Field>
+            {/* REMEMBER */}
+            <div className="flex items-center gap-3">
+              <Checkbox
+                id="remember"
+                className="border-gray-500 data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500"
+              />
 
-            <Field className="border-0">
-              <Button
-                type="submit"
-                className="h-14 rounded-xl text-base font-semibold bg-gradient-to-r from-orange-400 to-orange-600 text-white hover:opacity-90 transition-all"
+              <Label
+                htmlFor="remember"
+                className="text-sm text-gray-400 cursor-pointer"
               >
-                Iniciar Sesión →
-              </Button>
-            </Field>
+                Recordar sesión
+              </Label>
+            </div>
 
-            <Field className="border-0">
-              <p className="text-center text-sm text-gray-600">
-                ¿No tienes una cuenta?{" "}
-                <a
-                  href="#"
-                  className="text-orange-500 font-medium hover:text-orange-400"
-                >
-                  Contactar soporte
-                </a>
-              </p>
-            </Field>
-          </FieldGroup>
-        </form>
-      </div>
+            {/* BUTTON */}
+            <Button
+              type="submit"
+              className="h-14 rounded-2xl text-lg font-bold bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 transition-all shadow-lg hover:shadow-orange-500/30"
+            >
+              Iniciar Sesión →
+            </Button>
+
+            {/* FOOTER */}
+            <p className="text-center text-sm text-gray-500">
+              ¿No tienes una cuenta?{" "}
+              
+              <Link
+                href="#"
+                className="text-orange-500 font-semibold hover:text-orange-400"
+              >
+                Contactar soporte
+              </Link>
+            </p>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 }
