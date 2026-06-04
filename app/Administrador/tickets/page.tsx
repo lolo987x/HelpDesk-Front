@@ -2,7 +2,7 @@ import React from 'react'
 
 function TicketsPage() {
   return (
-    <div>Tickets Page</div>
+    <div>Tickets page</div>
   )
 }
 
